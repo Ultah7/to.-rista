@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday rista!</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://dekatutorial.github.io/spl/s.css" />
+    <script src="https://dekatutorial.github.io/spl/s.js"></script>
+
+    <style>
+      /* PERBAIKAN UKURAN GAMBAR SURAT */
+      * {
+        color: pink !important;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to bottom right, #ff7eb3, #ff758c);
+        margin: 0;
+        padding: 0;
+        color: pink;
+        overflow-x: hidden;
+      }
+
+      /* Card */
+      .card {
+        width: 320px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        padding: 20px;
+      }
+
+      .card img,
+      .card video {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        display: block;
+        border-radius: 12px;
+        margin-bottom: 15px;
+      }
+
+      /* Khusus gambar surat */
+      .mail {
+        width: 120px;   /* ukuran pas */
+        height: auto;   /* biar nggak gepeng */
+        display: block;
+        margin: 0 auto 15px;
+      }
+
+      /* Teks */
+      .card h2 {
+        font-size: 18px;
+        color: #333 !important;
+        margin-bottom: 12px;
+      }
+
+      .card p {
+        font-size: 14px;
+        color: #555 !important;
+      }
+
+      /* STYLE LAINNYA YANG SUDAH ADA */
+      .card-foto {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        width: 80%;
+        max-width: 320px;
+        margin: 20px auto;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .card-foto img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .card-foto p {
+        font-size: 14px;
+        color: pink;
+        margin-top: 8px;
+        font-style: italic;
+      }
+
+      /* Gallery */
+      #galleryContainer,
+      #galleryBola,
+      #galleryRoket,
+      #galleryArtis {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .card:hover {
+        transform: scale(1.03);
+      }
+
+      .card img,
+      .card video {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .caption {
+        padding: 10px;
+        font-size: 14px;
+        color: pink;
+      }
+
+      .slide-title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: pink;
+        margin: 8px 0;
+      }
+
+      .audio-container {
+        margin: 20px auto;
+        text-align: center;
+        max-width: 320px;
+      }
+      
+      .audio-container p {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      audio {
+        width: 100%;
+        filter: sepia(20%) saturate(70%) hue-rotate(300deg); 
+      }
+
+      /* Lightbox */
+      .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: pink;
+      }
+
+      .lightbox img,
+      .lightbox video {
+        max-width: 90%;
+        max-height: 70%;
+        border-radius: 10px;
+      }
+
+      .lightbox p {
+        margin-top: 15px;
+        font-size: 16px;
+        color: pink;
+      }
+
+      .close,
+      .prev,
+      .next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 40px;
+        font-weight: bold;
+        color: pink;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .close {
+        top: 20px;
+        right: 30px;
+        font-size: 35px;
+      }
+
+      .prev {
+        left: 20px;
+      }
+
+      .next {
+        right: 20px;
+      }
+
+      footer,
+      .credit,
+      #credit,
+      .deka,
+      .watermark {
+        display: none !important;
+      }
+
+      /* Countdown */
+      #countdownBox {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 80%;
+        max-width: 350px;
+        margin: 40px auto;
+        text-align: center;
+      }
+
+      #countdownBox h2 {
+        color: pink;
+        margin-bottom: 15px;
+      }
+
+      #countdown {
+        font-size: 20px;
+        font-weight: bold;
+        color: pink;
+        animation: blink 1s infinite alternate;
+      }
+
+      @keyframes blink {
+        from { opacity: 1; }
+        to { opacity: 0.4; }
+      }
+
+      /* Fireworks Canvas */
+      #fireworks {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999; 
+      }
+
+      #roketTrigger {
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 2em;
+        margin: 20px 0;
+        display: inline-block;
+        animation: bounce 1s infinite alternate;
+      }
+
+      @keyframes bounce {
+        from { transform: translateY(0); }
+        to { transform: translateY(-10px); }
+      }
+
+      #goal-text {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2.5em;
+        font-weight: bold;
+        color: pink;
+        z-index: 10000;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        animation: goalPop 1s ease forwards;
+        text-align: center;
+        width: 90%;
+      }
+
+      @keyframes goalPop {
+        0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+        50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      }
+
+      /* Style untuk kuis */
+      .quiz-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 80%;
+        max-width: 350px;
+        margin: 20px auto;
+        text-align: center;
+      }
+
+      .quiz-container input {
+        padding: 10px;
+        margin: 10px 0;
+        border: 2px solid pink;
+        border-radius: 5px;
+        width: 80%;
+        color: black !important;
+      }
+
+      .quiz-container button {
+        background: pink;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .message {
+        margin-top: 10px;
+        font-style: italic;
+      }
+
+      #quotesBox {
+        display: none;
+        text-align: center;
+        margin: 20px auto;
+        max-width: 400px;
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+
+      #quotesText {
+        color: pink;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: 'Ubuntu', sans-serif;
+        white-space: pre-wrap;
+        text-align: left;
+        line-height: 1.6;
+      }
+
+      .falling-heart {
+        position: fixed;
+        top: -40px;
+        left: 0;
+        pointer-events: none;
+        z-index: 99999;
+        user-select: none;
+        will-change: transform, opacity;
+      }
+
+      @keyframes heartFall {
+        to {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .flying-lantern {
+        position: fixed;
+        bottom: -60px;
+        pointer-events: none;
+        z-index: 99998;
+        user-select: none;
+        will-change: transform, opacity;
+      }
+
+      @keyframes lanternUp {
+        0% { transform: translateY(0) translateX(0); opacity: 0; }
+        10% { opacity: 0.8; }
+        90% { opacity: 0.8; }
+        100% { transform: translateY(-115vh) translateX(30px); opacity: 0; }
+      }
+    </style>
+  </head>
+  <body class="body">
+    <canvas id="fireworks"></canvas>
+
+    <div id="goal-text">arionnnn the bestt!! 💯</div>
+
+    <div class="open">
+      <div class="card">
+        <h2>halo rista ada pesan buat kamu nih</h2>
+        <img
+          class="mail"
+          src="https://dekatutorial.github.io/spesial_mail.png"
+          alt="Surat"
+        />
+        <h3>Tekan untuk membuka</h3>
+      </div>
+    </div>
+
+    <div class="atas" id="atas">
+      <img src="stiker.jpg" alt="Stiker Ultah" />
+      <h2>Scroll ke bawah ya cantik</h2>
+    </div>
+
+    <div class="card-foto" data-aos="zoom-in">
+      <img src="fotoultahku.jpg" alt="Foto Ulang Tahun" />
+      <p>
+        semoga Allah selalu memberikan kamu kesehatan dan kebahagiaan tiada
+        henti
+      </p>
+    </div>
+
+    <p data-aos="zoom-in">بَارَكَ اللَّهُ فِى عُمْرِكِ barakallah fii umrik rista🎉</p>
+    <p data-aos="zoom-in">Selamat ulang tahun dan tahun baru 🤍</p>
+    <p data-aos="zoom-in">
+      Semoga sehat selalu, makin hebat dan berkah usianya 🎂
+    </p>
+    <p data-aos="zoom-in">Tetap semangat mengejar mimpi yaa💪</p>
+    <p data-aos="zoom-in">samangatt terus taa✨</p>
+
+    <h2 data-aos="zoom-in" style="text-align: center; margin-top: 50px;">tunggu sebelum lanjut foto dulu yaa!</h2>
+    
+    <div class="card-foto" data-aos="zoom-in">
+      <img src="meme1.jpg" alt="Meme 1" />
+    </div>
+
+    <div class="card-foto" data-aos="zoom-in">
+      <img src="meme2.jpg" alt="Meme 2" />
+    </div>
+
+    <div class="card-foto" data-aos="zoom-in">
+      <img src="meme3.jpg" alt="Meme 3" />
+      <p>1 2 3...manggaa</p>
+    </div>
+
+    <div class="card-foto" data-aos="zoom-in">
+      <img src="meme4.jpg" alt="Meme 4" />
+    </div>
+
+    <div class="card-foto" data-aos="zoom-in">
+      <img src="meme5.jpg" alt="Meme 5" />
+    </div>
+
+    <div class="card-foto" data-aos="zoom-in" style="margin-bottom: 50px;">
+      <img src="meme6.jpg" alt="Meme 6" />
+    </div>
+
+    <p
+      data-aos="zoom-in"
+      id="loveTrigger"
+      style="cursor: pointer; font-weight: bold"
+    >
+      Pencet love-nya <i class="material-icons-sharp"> favorite </i>
+    </p>
+
+    <div id="galleryContainer" data-aos="zoom-in">
+      <h2>Kenangan Ulang Tahun 🎉</h2>
+      <div class="gallery">
+        <div class="card" onclick="openLightbox(0)">
+          <div class="slide-title">Selamat Ulang Tahun 🎥</div>
+          <video src="vidioultah.mp4" muted></video>
+          <div class="caption">
+            masi inget moment ini ngga rista? walaupun masa lalu indah tapi masa
+            depan pasti ngga kalah indahnya juga❤
+            </div>
+        </div>
+
+        <div class="card" onclick="openLightbox(1)">
+          <img src="fotoultah1.jpg" alt="Foto 1" />
+          <div class="caption">Waktu kita pertama kali jalan bareng ✨</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(2)">
+          <div class="slide-title">Foto bareng sahabat ❤</div>
+          <img src="fotosahabat.jpg" alt="Foto Bareng Sahabat" />
+          <div class="caption">
+            semua teman emg ada masa nya , tapi smoga sama kamu masanya ga akan
+            habis sampai kapanpun
+          </div>
+        </div>
+
+        <div class="card" onclick="openLightbox(3)">
+          <img src="fotoultah3.jpg" alt="Foto 3" />
+          <div class="caption">Hari yang nggak pernah terlupakan 💖</div>
+        </div>
+        
+        <div class="card" onclick="openLightbox(4)">
+          <div class="slide-title">Moment Pramuka</div>
+          <img src="moment_pramuka.jpg" alt="Moment Pramuka" />
+          <div class="caption">Ekskul paling asik</div>
+        </div>
+
+        <div class="card" onclick="openLightbox(5)">
+          <div class="slide-title">Pesan dari Prilly 🎥</div>
+          <video src="pesan prilly.mp4" muted></video>
+          <div class="caption">kalian berdua mrip banget 💖</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-container" data-aos="zoom-in" id="quiz-artis">
+      <h2>Pesan Spesial 🤩</h2>
+      <p>Ada pesan nih dari artis favorit kamu</p>
+      <p>Coba tebak dari siapa?</p>
+      <input type="text" id="answer-artis" placeholder="Tulis jawaban di sini...">
+      <button onclick="checkAnswer('artis')">kirim Jawaban 🩷</button>
+      <p id="msg-artis" class="message"></p>
+    </div>
+
+    <div id="galleryArtis" data-aos="zoom-in">
+      <h2>Kalian berdua mrip banget ✨</h2>
+      <div class="gallery">
+        <div class="card" onclick="openLightbox(5)">
+          <div class="slide-title">Pesan dari Prilly 🎥</div>
+          <video src="pesan prilly.mp4" muted></video>
+          <div class="caption">kalian berdua mrip banget 💖</div>
+        </div>
+      </div>
+    </div>
+
+    <p data-aos="zoom-in" id="quotesTrigger" style="cursor: pointer; font-weight: bold; text-align: center;">
+      Ada pesan buat kamu lagi nih 💌 <br> (Coba pencet suratnya)
+    </p>
+
+    <div id="quotesBox">
+      <p id="quotesText"></p>
+    </div>
+
+    <div class="quiz-container" data-aos="zoom-in" id="quiz-bola">
+      <h2>Kuis vtuber favorit😍💕</h2>
+      <p>Before liat gallery vtuber, jawab dulu pertanyaan ini:</p>
+      <p>Coba tebak siapa vtuber favorit rista?</p>
+      <input type="text" id="answer-bola" placeholder="Tulis jawaban di sini...">
+      <button onclick="checkAnswer('bola')">kirim Jawaban 🩷</button>
+      <p id="msg-bola" class="message"></p>
+    </div>
+
+    <div id="galleryBola" data-aos="zoom-in">
+      <h2>Gallery Vtuber Favorit 💖</h2>
+      <div class="gallery">
+        <div class="card" onclick="openLightboxBola(0)">
+          <img src="Barcelona.jpg" alt="VTuber 1" />
+          <div class="caption">Arion, selalu jadi juara di hati 🏆</div>
+        </div>
+
+        <div class="card" onclick="openLightboxBola(1)">
+          <img src="Yamal.jpg" alt="VTuber 2" />
+          <div class="caption">Momen keren favoritmu ⚡</div>
+        </div>
+      </div>
+
+      <div class="audio-container" data-aos="zoom-in">
+        <p>ada pesan buat kamu nih taa dari arion</p>
+        <audio controls>
+          <source src="pesan arion.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+
+      <div class="audio-container" data-aos="zoom-in">
+        <p>selalu inget kata kata arion ya</p>
+        <audio controls>
+          <source src="kata arion.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+      
+      <p
+        data-aos="zoom-in"
+        id="roketTrigger"
+        style="cursor: pointer; font-weight: bold"
+      >
+        Pencet roket-nya 🚀
+      </p>
+    </div>
+
+    <div class="quiz-container" data-aos="zoom-in" id="quiz-langit">
+      <h2>Kuis Langit 🌌</h2>
+      <p>Kapan tanggal lahir kamu?</p>
+      <input type="text" id="answer-langit" placeholder="Contoh: 22 November 2008">
+      <button onclick="checkAnswer('langit')">kirim Jawaban 🩷</button>
+      <p id="msg-langit" class="message"></p>
+    </div>
+
+    <div id="galleryRoket" data-aos="zoom-in">
+      <h2>Kamu pernah kepikiran ngga rista, gimana kira kira keadaan langit pas kamu lahir?</h2>
+      <div class="gallery">
+        <div class="card" onclick="openLightboxRoket(0)">
+          <img src="galaxy.jpg" alt="Galaxy" />
+          <div class="caption">Ini keadaan galaxy saat kamu lahir ✨</div>
+        </div>
+        <div class="card" onclick="openLightboxRoket(1)">
+          <img src="moon.jpg" alt="Bulan" />
+          <div class="caption">Ini keadaan bulan saat kamu lahir 🌙</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="countdownBox" data-aos="zoom-in">
+      <h2>Countdown ke 22 November 🎂</h2>
+      <div id="countdown">Loading...</div>
+    </div>
+
+    <div class="card-foto" data-aos="zoom-in" style="margin-top: 50px; margin-bottom: 50px;">
+      <h2 style="color: pink; margin-bottom: 10px;">Lily</h2>
+      <img src="bunga lily.jpg" alt="Bunga Lily" />
+      <p>Wish you all the best</p>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+      <span class="close" onclick="closeLightbox()">&times;</span>
+      <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+      <img id="lightbox-img" src="" />
+      <video id="lightbox-video" controls style="display: none"></video>
+      <p id="lightbox-caption"></p>
+      <span class="next" onclick="changeSlide(1)">&#10095;</span>
+    </div>
+
+    <div id="lightboxBola" class="lightbox">
+      <span class="close" onclick="closeLightboxBola()">&times;</span>
+      <span class="prev" onclick="changeSlideBola(-1)">&#10094;</span>
+      <img id="lightboxBola-img" src="" />
+      <p id="lightboxBola-caption"></p>
+      <span class="next" onclick="changeSlideBola(1)">&#10095;</span>
+    </div>
+
+    <div id="lightboxRoket" class="lightbox">
+      <span class="close" onclick="closeLightboxRoket()">&times;</span>
+      <span class="prev" onclick="changeSlideRoket(-1)">&#10094;</span>
+      <img id="lightboxRoket-img" src="" />
+      <p id="lightboxRoket-caption"></p>
+      <span class="next" onclick="changeSlideRoket(1)">&#10095;</span>
+    </div>
+
+    <script>
+      var musik = "laguultah1.mp3";
+      AOS.init({ once: true });
+      DekaTutorial(musik);
+
+      document
+        .getElementById("loveTrigger")
+        .addEventListener("click", function () {
+          document.getElementById("galleryContainer").style.display = "block";
+        });
+
+      document.getElementById("quotesTrigger").addEventListener("click", function() {
+        document.getElementById("quotesBox").style.display = "block";
+        typeWriter(quotesMessage, "quotesText", 50);
+      });
+
+      const photos = [
+        {
+          type: "video",
+          src: "vidioultah.mp4",
+          caption: "masi inget moment ini ngga rista? walaupun masa lalu indah tapi masa depan pasti ngga kalah indahnya juga❤",
+        },
+        {
+          type: "image",
+          src: "fotoultah1.jpg",
+          caption: "Waktu kita pertama kali jalan bareng ✨",
+        },
+        {
+          type: "image",
+          src: "fotosahabat.jpg",
+          caption: "Foto bareng sahabat ❤ - semua teman emg ada masa nya , tapi smoga sama kamu masanya ga akan habis sampai kapanpun",
+        },
+        {
+          type: "image",
+          src: "fotoultah3.jpg",
+          caption: "Hari yang nggak pernah terlupakan 💖",
+        },
+        {
+          type: "image",
+          src: "moment_pramuka.jpg",
+          caption: "Ekskul paling asik",
+        },
+        {
+          type: "video",
+          src: "pesan prilly.mp4",
+          caption: "kalian berdua mrip banget 💖",
+        },
+      ];
+
+      let currentIndex = 0;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        document.getElementById("lightbox").style.display = "flex";
+        showSlide();
+      }
+
+      function closeLightbox() {
+        document.getElementById("lightbox").style.display = "none";
+        document.getElementById("lightbox-video").pause();
+      }
+
+      function changeSlide(step) {
+        currentIndex += step;
+        if (currentIndex < 0) currentIndex = photos.length - 1;
+        if (currentIndex >= photos.length) currentIndex = 0;
+        showSlide();
+      }
+
+      function showSlide() {
+        const photo = photos[currentIndex];
+        const img = document.getElementById("lightbox-img");
+        const video = document.getElementById("lightbox-video");
+
+        if (photo.type === "image") {
+          img.src = photo.src;
+          img.style.display = "block";
+          video.style.display = "none";
+        } else if (photo.type === "video") {
+          video.src = photo.src;
+          video.style.display = "block";
+          img.style.display = "none";
+        }
+        document.getElementById("lightbox-caption").textContent = photo.caption;
+      }
+
+      const photosBola = [
+        { type: "image", src: "Barcelona.jpg", caption: "Arion, selalu jadi juara di hati 🏆" },
+        { type: "image", src: "Yamal.jpg", caption: "Momen keren favoritmu ⚡" },
+      ];
+
+      let currentIndexBola = 0;
+      function openLightboxBola(index) {
+        currentIndexBola = index;
+        document.getElementById("lightboxBola").style.display = "flex";
+        showSlideBola();
+      }
+      function closeLightboxBola() { document.getElementById("lightboxBola").style.display = "none"; }
+      function changeSlideBola(step) {
+        currentIndexBola += step;
+        if (currentIndexBola < 0) currentIndexBola = photosBola.length - 1;
+        if (currentIndexBola >= photosBola.length) currentIndexBola = 0;
+        showSlideBola();
+      }
+      function showSlideBola() {
+        const photo = photosBola[currentIndexBola];
+        document.getElementById("lightboxBola-img").src = photo.src;
+        document.getElementById("lightboxBola-caption").textContent = photo.caption;
+      }
+
+      const photosRoket = [
+        { type: "image", src: "galaxy.jpg", caption: "Ini keadaan galaxy saat kamu lahir ✨" },
+        { type: "image", src: "moon.jpg", caption: "Ini keadaan bulan saat kamu lahir 🌙" },
+      ];
+
+      let currentIndexRoket = 0;
+      function openLightboxRoket(index) {
+        currentIndexRoket = index;
+        document.getElementById("lightboxRoket").style.display = "flex";
+        showSlideRoket();
+      }
+      function closeLightboxRoket() { document.getElementById("lightboxRoket").style.display = "none"; }
+      function changeSlideRoket(step) {
+        currentIndexRoket += step;
+        if (currentIndexRoket < 0) currentIndexRoket = photosRoket.length - 1;
+        if (currentIndexRoket >= photosRoket.length) currentIndexRoket = 0;
+        showSlideRoket();
+      }
+      function showSlideRoket() {
+        const photo = photosRoket[currentIndexRoket];
+        document.getElementById("lightboxRoket-img").src = photo.src;
+        document.getElementById("lightboxRoket-caption").textContent = photo.caption;
+      }
+
+      function updateCountdown() {
+        const currentYear = new Date().getFullYear();
+        let targetDate = new Date(`November 22, ${currentYear} 00:00:00`).getTime();
+        const now = new Date().getTime();
+        if (targetDate - now < 0) {
+            targetDate = new Date(`November 22, ${currentYear + 1} 00:00:00`).getTime();
+        }
+        const distance = targetDate - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("countdown").innerHTML = days + " Hari " + hours + " Jam " + minutes + " Menit " + seconds + " Detik ";
+      }
+      setInterval(updateCountdown, 1000);
+
+      const canvasFW = document.getElementById("fireworks");
+      const ctxFW = canvasFW.getContext("2d");
+      let particlesFW = [];
+      let activeFW = false;
+      function resizeFW() {
+        canvasFW.width = window.innerWidth;
+        canvasFW.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeFW);
+      resizeFW();
+      function randomFW(min, max) { return Math.random() * (max - min) + min; }
+      function createFirework() {
+        const x = randomFW(100, canvasFW.width - 100);
+        const y = randomFW(50, canvasFW.height / 2);
+        const count = 60;
+        for (let i = 0; i < count; i++) {
+          const angle = (i / count) * 2 * Math.PI;
+          const speed = randomFW(2, 6);
+          particlesFW.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, alpha: 1, size: randomFW(2, 4), color: `hsl(${Math.floor(randomFW(0, 360))},100%,60%)` });
+        }
+      }
+      function animateFW() {
+        if (!activeFW) return;
+        ctxFW.fillStyle = "rgba(0,0,0,0.2)";
+        ctxFW.fillRect(0, 0, canvasFW.width, canvasFW.height);
+        particlesFW.forEach((p, i) => {
+          p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.alpha -= 0.01;
+          if (p.alpha <= 0) { particlesFW.splice(i, 1); } 
+          else { ctxFW.globalAlpha = p.alpha; ctxFW.fillStyle = p.color; ctxFW.beginPath(); ctxFW.arc(p.x, p.y, p.size, 0, 2 * Math.PI); ctxFW.fill(); }
+        });
+        requestAnimationFrame(animateFW);
+      }
+      function fireworks() {
+        activeFW = true; createFirework(); animateFW();
+        setTimeout(() => { activeFW = false; ctxFW.clearRect(0, 0, canvasFW.width, canvasFW.height); particlesFW = []; }, 3000);
+      }
+
+      document.querySelector(".open .card").addEventListener("click", fireworks);
+      document.getElementById("loveTrigger").addEventListener("click", fireworks);
+
+      function checkAnswer(type) {
+        if (type === 'bola') {
+          const ans = document.getElementById("answer-bola").value.toLowerCase().trim();
+          if (ans === "arion") { showGoal(); } 
+          else { document.getElementById("msg-bola").innerText = "Masa rista lupa? Coba lagi 😅"; }
+        } else if (type === 'artis') {
+          const ans = document.getElementById("answer-artis").value.toLowerCase().trim();
+          if (ans === "prilly") {
+            document.getElementById("quiz-artis").style.display = "none";
+            document.getElementById("galleryArtis").style.display = "block";
+            fireworks();
+          } else { document.getElementById("msg-artis").innerText = "Salahh, coba lagi artis favoritmu siapa? 😅"; }
+        } else {
+          const ans = document.getElementById("answer-langit").value.toLowerCase().trim();
+          if (ans.includes("22 november")) { launchSuccess(); } 
+          else { document.getElementById("msg-langit").innerText = "Hmm coba cek lagi (Contoh: 22 November 2008) 😅"; }
+        }
+      }
+
+      function showGoal() {
+        document.getElementById("quiz-bola").style.display = "none";
+        const goal = document.getElementById("goal-text");
+        goal.style.display = "block";
+        setTimeout(() => { goal.style.display = "none"; document.getElementById("galleryBola").style.display = "block"; fireworks(); }, 3000);
+      }
+
+      function launchSuccess() {
+        document.getElementById("quiz-langit").style.display = "none";
+        document.getElementById("galleryRoket").style.display = "block";
+        fireworks();
+      }
+
+      const quotesMessage = "Tetaplah bersinar dengan caramu sendiri ✨\nKamu lebih berharga dari yang kamu kira rista 💖";
+      function typeWriter(text, elementId, speed) {
+        let i = 0;
+        const element = document.getElementById(elementId);
+        element.innerHTML = "";
+        function typing() {
+          if (i < text.length) { element.innerHTML += text.charAt(i); i++; setTimeout(typing, speed); }
+        }
+        typing();
+      }
+    </script>
+
+    <script>
+      (function() {
+        function replaceDekaTutorialText() {
+          document.querySelectorAll('*').forEach(element => {
+            if (element.childNodes.length) {
+              element.childNodes.forEach(node => {
+                if (node.nodeType === 3 && node.textContent.includes('Deka Tutorial')) {
+                  node.textContent = node.textContent.replace(/Deka Tutorial/gi, 'rizky');
+                }
+              });
+            }
+          });
+        }
+        if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', replaceDekaTutorialText); } 
+        else { replaceDekaTutorialText(); }
+        setTimeout(replaceDekaTutorialText, 3000);
+      })();
+    </script>
+
+    <script>
+      (function () {
+        function createHeart() {
+          try {
+            const h = document.createElement("div");
+            h.className = "falling-heart";
+            h.textContent = "💖";
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.fontSize = 18 + Math.floor(Math.random() * 28) + "px";
+            h.style.animation = "heartFall " + (3 + Math.random() * 3) + "s linear forwards";
+            document.body.appendChild(h);
+            setTimeout(function () { if (h && h.parentNode) h.parentNode.removeChild(h); }, 8000);
+          } catch (e) {}
+        }
+        setInterval(createHeart, 700);
+
+        function createLantern() {
+          try {
+            const l = document.createElement("img");
+            l.src = "lentera.png"; 
+            l.className = "flying-lantern";
+            l.style.left = Math.random() * 100 + "vw";
+            l.style.width = Math.random() * 30 + 30 + "px";
+            l.style.filter = "drop-shadow(0 0 10px orange)";
+            l.style.animation = "lanternUp " + (Math.random() * 4 + 6) + "s ease-in forwards";
+            document.body.appendChild(l);
+            setTimeout(() => { if (l && l.parentNode) l.parentNode.removeChild(l); }, 10000);
+          } catch (e) {}
+        }
+        setInterval(createLantern, 1500);
+      })();
+    </script>
+  </body>
+</html>
